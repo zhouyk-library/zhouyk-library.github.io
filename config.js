@@ -1,0 +1,1 @@
+window.treeMenue=[{"key":"micro-service","name":"微服务","isP":true,"child":[{"key":"OAuth2","name":"OAuth2","isP":true,"child":[{"key":"index","name":"简介","path":"/modules/micro-service/OAuth/index"},{"key":"OAuth2Flow","name":"授权模式","path":"/modules/micro-service/OAuth/OAuth2Flow"}]}]}]
