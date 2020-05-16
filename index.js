@@ -29,12 +29,12 @@ function writeJSON(jsonPath, jsonstr) {
 }
 
 const config = parseConfigJSON(modulesPath);
-writeJSON('./config.js', "window.treeMenue=" + JSON.stringify(config))
+writeJSON('./js/config.js', "window.treeMenue=" + JSON.stringify(config))
 
 
 const app = express();
 // 静态服务器
 app.use(express.static(__dirname));
 app.listen(8088, () => {
-  console.log(`App listening at port 8088`);
+  console.log(`localhost:8088`);
 });
