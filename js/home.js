@@ -37,7 +37,7 @@ function nodeclickevent(eve) {
 
 function renderMarkEvent(eve) {
   var path = eve.toElement.getAttribute("path");
-  $.get(path + ".md", function(data) {
+  $.get(path + ".md?timestep=" + (new Date().getTime()), function(data) {
     $("#html-context").html(renderMark2Html(data));
   });
 }
