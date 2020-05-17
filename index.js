@@ -12,7 +12,7 @@ function parseConfigJSON(paths) {
     if (item.isP) {
       item.child = parseConfigJSON(paths + "/" + item.key)
     } else {
-      item.path = paths.substring(1, paths.length - 1) + "/" + item.key
+      item.path = paths.substring(1, paths.length) + "/" + item.key
     }
   })
   return config;
@@ -23,7 +23,7 @@ function writeJSON(jsonPath, jsonstr) {
     if (err) {
       console.error(err);
     } else {
-      console.log('----------修改成功-------------');
+      console.log('构建成功!');
     }
   });
 }
@@ -36,5 +36,5 @@ const app = express();
 // 静态服务器
 app.use(express.static(__dirname));
 app.listen(8088, () => {
-  console.log(`localhost:8088`);
+  console.log('localhost:8088');
 });
