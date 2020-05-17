@@ -34,11 +34,14 @@ html,body{
   grid-area: left;
   height: 100%;
   width: 100%;
+  padding: 10px 0 0 10px;
   overflow: scroll scroll;
+  transition: .5s all;
 }
 .blog-con-right{
   height: 100%;
   width: 100%;
+  padding: 10px 0 0 10px;
   grid-area: right;
   overflow: hidden scroll;
 }

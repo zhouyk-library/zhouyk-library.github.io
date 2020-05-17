@@ -1,0 +1,106 @@
+@charset "utf-8";
+/*
+*Author zhaoxuhui
+*/
+.Light pre {
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: #f7f8fb !important;
+  padding: 20px !important;
+  border-radius: 4px !important;
+  overflow-y: hidden !important;
+  overflow-x: auto !important;
+  margin: 20px 0 !important;
+}
+.Light pre code {
+  font-family: Consolas !important;
+  font-size: 13px;
+  line-height: 22px !important;
+  color: #444;
+}
+.Light * {
+  -webkit-font-smoothing: antialiased;
+}
+.Light .hljs {
+  display: block;
+  overflow-x: auto;
+  color: #525252;
+  padding: 15px;
+  -webkit-text-size-adjust: none;
+}
+.Light .hljs-doctype {
+  color: #999;
+}
+.Light .hljs-tag {
+  color: #3e76f6;
+}
+.Light .hljs-attribute {
+  color: #e96900;
+}
+.Light .hljs-value {
+  color: #42b983;
+}
+.Light .hljs-keyword {
+  color: #e96900;
+}
+.Light .hljs-string {
+  color: #42b983;
+}
+.Light .hljs-comment {
+  color: #b3b3b3;
+}
+.Light .hljs-operator .hljs-comment {
+  color: #525252;
+}
+.Light .hljs-regexp {
+  color: #af7dff;
+}
+.Light .hljs-built_in {
+  color: #2db7f5;
+}
+.Light .css .hljs-class {
+  color: #e96900;
+}
+.Light .css .hljs-number,
+.Light .javascript .hljs-number {
+  color: #fc1e70;
+}
+.Light .css .hljs-attribute {
+  color: #af7dff;
+}
+.Light .css .hljs-important {
+  color: red;
+}
+.Light .actionscript .hljs-literal,
+.Light .javascript .hljs-literal {
+  color: #fc1e70;
+}
+.Light pre {
+  padding: 0;
+  margin: 0;
+  background: #f7f7f7 !important;
+}
+.Light code {
+  display: inline-block;
+  background: #f7f7f7;
+  font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+  margin: 0 3px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #666;
+  border: 1px solid #eee;
+}
+.Light pre code {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+.Light pre.bg code {
+  background: #f7f7f7;
+}
