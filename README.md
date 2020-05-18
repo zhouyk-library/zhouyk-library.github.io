@@ -13,6 +13,12 @@ npm install
 
 ## 构建
 ```
-node index.js
+npm run build
+
+```
+
+## 运行 && 构建
+```
+npm run server
 
 ```
