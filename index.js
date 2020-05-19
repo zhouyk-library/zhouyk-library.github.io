@@ -1,7 +1,9 @@
 const fs = require("fs")
 const path = require("path")
-const express = require('express');
-
+const express = require('express')
+const args = process.argv.splice(2)
+const isBuild = args.includes('build') || args.length === 0;
+const isServer = args.includes('server')
 const modulesPath = "./modules"
 const configFileName = "config"
 
@@ -27,14 +29,16 @@ function writeJSON(jsonPath, jsonstr) {
     }
   });
 }
+if(isBuild || isServer){
+  const config = parseConfigJSON(modulesPath);
+  writeJSON('./js/config.js', "window.treeMenue=" + JSON.stringify(config))
+}
 
-const config = parseConfigJSON(modulesPath);
-writeJSON('./js/config.js', "window.treeMenue=" + JSON.stringify(config))
-
-
-const app = express();
-// 静态服务器
-app.use(express.static(__dirname));
-app.listen(8088, () => {
-  console.log('localhost:8088');
-});
+if(isServer){
+  const app = express();
+  // 静态服务器
+  app.use(express.static(__dirname));
+  app.listen(8088, () => {
+    console.log('localhost:8088');
+  });
+}

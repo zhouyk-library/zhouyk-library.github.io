@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node index.js build",
+    "server": "node index.js server"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/zhouyk-library/zhouyk-library.github.io/issues"
   },
-  "homepage": "https://github.com/zhouyk-library/zhouyk-library.github.io#readme"
+  "homepage": "https://github.com/zhouyk-library/zhouyk-library.github.io#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
