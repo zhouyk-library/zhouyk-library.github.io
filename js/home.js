@@ -14,6 +14,7 @@ $(document).ready(function() {
 });
 
 function renderMarkEvent(path) {
+  location.hash = '#'+path
   $.get(path + "?timestep=" + (new Date().getTime()), function(data) {
     $("#html-context").html(renderMark2Html(data));
   });
