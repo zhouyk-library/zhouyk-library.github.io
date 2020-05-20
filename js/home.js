@@ -1,43 +1,21 @@
 $(document).ready(function() {
-  function generate(treeMenue, par) {
-    treeMenue.forEach(item => {
-      var ele = document.createElement('li');
-      if (!item.child || item.child.length === 0) {
-        ele.innerHTML = item.name;
-        ele.onclick = renderMarkEvent;
-        ele.setAttribute("path", item.path)
-      } else {
-        ele.innerHTML = '<span onclick="nodeclickevent(this)"><span class="switch-open"></span>' + item.name + '</span>';
-        var nextpar = document.createElement('ul');
-        ele.appendChild(nextpar);
-        generate(item.child, nextpar);
-      }
-      par.appendChild(ele);
-
-    })
-  }
-  generate(window.treeMenue, document.getElementsByClassName('left-tree-container')[0]);
-
-
+  $("#tree-container").tagTree({
+    id:"",
+    data:window.treeMenue,
+    fold:true,
+    multiple:false,
+    click:function(val){
+      val && val != 'undefined' && renderMarkEvent(val)
+    },
+    done:function(){
+      console.log('tagTree is ok!');
+    }
+  });
 });
 
-//处理展开和收起
-function nodeclickevent(eve) {
-  var par = eve.nextElementSibling;
-  if (par.style.display == 'none') {
-    par.style.display = 'block';
-    // eve.className = 'switch-open';
-  }
-  else {
-    par.style.display = 'none';
-    // eve.className = 'switch-close';
-  }
-}
-
-
-function renderMarkEvent(eve) {
-  var path = eve.toElement.getAttribute("path");
-  $.get(path + ".md?timestep=" + (new Date().getTime()), function(data) {
+function renderMarkEvent(path) {
+  location.hash = '#'+path
+  $.get(path + "?timestep=" + (new Date().getTime()), function(data) {
     $("#html-context").html(renderMark2Html(data));
   });
 }
