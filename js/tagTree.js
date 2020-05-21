@@ -51,7 +51,12 @@
         }
 	    	return false;
 	    });
-	    defaults.done();
+      defaults.done();
+      setTimeout(() => {
+        defaults.openName.forEach(item=>{
+          $("#tree-container li span[modules-name='"+item+"']").click()
+        })
+      }, 300);
 	}
 
 	$.fn.tagTreeValues =function(){
@@ -68,7 +73,7 @@
 		var ul = $('<ul></ul>');
 		that.append(ul);
 		$.each(data,function(index,value){
-			var li = $('<li><span data-val="'+(!!value.path? value.path :'')+'">'+value.name+'</span></li>');
+			var li = $('<li><span data-val="'+(!!value.path? value.path :'')+'" modules-name="'+ value.key+'">'+value.name+'</span></li>');
 			ul.append(li);
 		    if(value.child.length > 0)
 		    {
