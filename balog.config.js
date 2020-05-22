@@ -1,6 +1,8 @@
 module.exports={
   style:'light',
-  title:'blog',
+  title:'zhouyk-library.github.io',
   logo:'',
-  template:'/index.html'
+  template:'/index.html',
+  cdn:[],
+  outdir:''
 }
