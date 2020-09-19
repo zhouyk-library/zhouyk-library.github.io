@@ -33,23 +33,45 @@ function parseConfigPath(i18nModules, dirPath) {
           "isP": true
         })
       } else {
-        const text = fs.readFileSync(curPath).toString()
-        var startIndex = text.indexOf('# ');
-        if (startIndex > -1) {
-          var context = text.substring(startIndex + 2, text.length);
-          var index = context.indexOf('\n');
-          index = index === -1 ? 0 : index
-          var title = context.substring(0, index);
+        const type = getFileType(file)
+        var title = '--'
+        if ('md' === type) {
+          const text = fs.readFileSync(curPath).toString()
+          var startIndex = text.indexOf('# ');
+          if (startIndex > -1) {
+            var context = text.substring(startIndex + 2, text.length);
+            var index = context.indexOf('\n');
+            index = index === -1 ? 0 : index
+            title = context.substring(0, index);
+          }
+        }
+        if ('html' === type) {
+          const text = fs.readFileSync(curPath).toString()
+          var startIndex = text.indexOf('<!-- ');
+          var endIndex = text.indexOf(' -->');
+          if (startIndex > -1) {
+            title = text.substring(startIndex + 5, endIndex) || '--';
+          }
         }
         config.push({
           "key": file,
-          "name": title
+          "name": title,
+          "type": type
         })
       }
     })
   }
   return config;
 };
+
+function getFileType(filepath) {
+  if (filepath.indexOf('.md') > -1) {
+    return 'md'
+  }
+  if (filepath.indexOf('.html') > -1) {
+    return 'html'
+  }
+}
 
 function writeJSON(jsonPath, jsonstr) {
   fs.writeFile(jsonPath, jsonstr, function(err) {

@@ -8,78 +8,77 @@
 /// //////////////////////////////////////////
 
 
-;(function($){
+; (function($) {
 
-	var defaults ={
-		id:"",
-		data:[],
-		fold:true,
-		multiple:false,
-		check:function(){},
-		done:function(){}
-	};
+  var defaults = {
+    id: "",
+    data: [],
+    fold: true,
+    multiple: false,
+    check: function() { },
+    done: function() { }
+  };
 
-	$.fn.tagTree = function(options){
-		var that = $(this);
-		options.id = "#" + that.attr("id");
-        var opts = $.extend(defaults, options);
+  $.fn.tagTree = function(options) {
+    var that = $(this);
+    options.id = "#" + that.attr("id");
+    var opts = $.extend(defaults, options);
 
-        that.addClass("tagtree");
-        setTree(defaults.data,that);
+    that.addClass("tagtree");
+    setTree(defaults.data, that);
 
-        $(defaults.id+' li:has(ul)').addClass('li-top');
-        if(defaults.fold)
-        	$(defaults.id+" .li-top li").hide('fast');
-	    $(defaults.id+' li.li-top > span').on('click', function (e) {
-	        var child = $(this).parent('li.li-top').find(' > ul > li');
-	        if (child.is(":visible")) {
-	            child.hide('fast');
-	        } else {
-	            child.show('fast');
-	        }
-	        return false;
-      });
-      
-	    $(defaults.id+' li span').click(function(event) {
-        const val = $(this).attr("data-val")
-        if(val){
-          if(!$(this).hasClass('i-check')){
-            $('.i-check').removeClass('i-check')
-            $(this).addClass('i-check');
-            defaults.click(val);
-          }
+    $(defaults.id + ' li:has(ul)').addClass('li-top');
+    if (defaults.fold)
+      $(defaults.id + " .li-top li").hide('fast');
+    $(defaults.id + ' li.li-top > span').on('click', function(e) {
+      var child = $(this).parent('li.li-top').find(' > ul > li');
+      if (child.is(":visible")) {
+        child.hide('fast');
+      } else {
+        child.show('fast');
+      }
+      return false;
+    });
+
+    $(defaults.id + ' li span').click(function(event) {
+      const val = $(this).attr("data-val")
+      const type = $(this).attr("modules-type")
+      if (val) {
+        if (!$(this).hasClass('i-check')) {
+          $('.i-check').removeClass('i-check')
+          $(this).addClass('i-check');
+          defaults.click(val, type);
         }
-	    	return false;
-	    });
-      defaults.done();
-      setTimeout(() => {
-        defaults.openName.forEach(item=>{
-          $("#tree-container li span[modules-name='"+item+"']").click()
-        })
-      }, 300);
-	}
+      }
+      return false;
+    });
+    defaults.done();
+    setTimeout(() => {
+      defaults.openName.forEach(item => {
+        $("#tree-container li span[modules-name='" + item + "']").click()
+      })
+    }, 300);
+  }
 
-	$.fn.tagTreeValues =function(){
-		var vals = [];
-		$(defaults.id +" .i-check").each(function(index, el) {
-			vals.push($(el).attr('data-val'));
-		});
-		return vals;
-	}
+  $.fn.tagTreeValues = function() {
+    var vals = [];
+    $(defaults.id + " .i-check").each(function(index, el) {
+      vals.push($(el).attr('data-val'));
+    });
+    return vals;
+  }
 
-	//递归生成树
-	function setTree(data,that)
-	{
-		var ul = $('<ul></ul>');
-		that.append(ul);
-		$.each(data,function(index,value){
-			var li = $('<li><span data-val="'+(!!value.path? value.path :'')+'" modules-name="'+ value.key+'">'+value.name+'</span></li>');
-			ul.append(li);
-		    if(value.child.length > 0)
-		    {
-		    	li.append('<div class="node-count">'+value.child.length+'</div>');
-		    	setTree(value.child,li);
-		    }
-		});
-	}
+  //递归生成树
+  function setTree(data, that) {
+    var ul = $('<ul></ul>');
+    that.append(ul);
+    $.each(data, function(index, value) {
+      var li = $('<li><span data-val="' + (!!value.path ? value.path : '') + '" modules-name="' + value.key + '" modules-type="' + value.type + '">' + value.name + '</span></li>');
+      ul.append(li);
+      if (value.child.length > 0) {
+        li.append('<div class="node-count">' + value.child.length + '</div>');
+        setTree(value.child, li);
+      }
+    });
+  }
 })(jQuery);

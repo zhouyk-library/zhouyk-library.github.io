@@ -1,29 +1,29 @@
 $(document).ready(function() {
   var hash = location.hash
   var path = []
-  if(!!hash){
-    path = hash.substring(1,hash.length).split("/")
-    path = path.slice(2,path.length)
+  if (!!hash) {
+    path = hash.substring(1, hash.length).split("/")
+    path = path.slice(2, path.length)
   }
   $("#tree-container").tagTree({
-    id:"",
-    data:window.treeMenue,
-    fold:true,
-    openName:path,
-    multiple:false,
-    click:function(val){
-      val && val != 'undefined' && renderMarkEvent(val)
+    id: "",
+    data: window.treeMenue,
+    fold: true,
+    openName: path,
+    multiple: false,
+    click: function(val, type) {
+      val && val != 'undefined' && renderMarkEvent(val, type)
     },
-    done:function(){
+    done: function() {
       console.log('tagTree is ok!');
     }
   });
 });
 
-function renderMarkEvent(path) {
-  location.hash = '#'+path
+function renderMarkEvent(path, type) {
+  location.hash = '#' + path
   $.get(path + "?timestep=" + (new Date().getTime()), function(data) {
-    $("#html-context").html(renderMark2Html(data));
+    $("#html-context").html(getContextHtml(data, type));
   });
 }
 
@@ -45,4 +45,11 @@ marked.setOptions({
 
 function renderMark2Html(markText) {
   return marked(markText);
+}
+function getContextHtml(data, type) {
+  switch (type) {
+    case 'md': return renderMark2Html(data);
+    case 'html': return data;
+    default: '';
+  }
 }
