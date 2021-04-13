@@ -135,7 +135,101 @@ pm.environment.set("access_token", resultobj.token);
 pm.globals.set("access_token", resultobj.token);
 
 ```
++ 其它操作
 
+发请求
+
+```javascript
+
+pm.sendRequest('https://postman-echo.com/get', (error, response) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log(response);
+    }
+});
+
+```
+cookie
+
+```javascript
+// 设置
+const jar = pm.cookies.jar();
+jar.set("httpbin.org", "session-id", "abc123", (error, cookie) => {
+    if (error) {
+        console.error(`An error occurred: ${error}`);
+    } else {
+        console.log(`Cookie saved: ${cookie}`);
+    }
+});
+// 校验（获取）
+pm.test("Cookie JSESSIONID is present", () => {
+    pm.expect(pm.cookies.has('JSESSIONID')).to.be.true;
+});
+
+```
+解析xml
+
+```javascript
+
+const responseJson = xml2Json(pm.response.text());
+
+```
+解析csv
+
+```javascript
+
+const parse = require('csv-parse/lib/sync');
+const responseJson = parse(pm.response.text());
+
+```
+
+解析html
+
+```javascript
+
+const $ = cheerio.load(pm.response.text());
+console.log($.html());
+
+```
+
+包含
+
+```javascript
+
+pm.test("Body contains string",() => {
+    pm.expect(pm.response.text()).to.include("customer_id");
+});
+
+```
+
+类型
+
+```javascript
+// json
+const schema = {
+    "items": {
+        "type": "boolean"
+    }
+};
+const data1 = [true, false];
+const data2 = [true, 123];
+pm.test('Schema is valid', function() {
+    pm.expect(tv4.validate(data1, schema)).to.be.true;
+    pm.expect(tv4.validate(data2, schema)).to.be.true;
+});
+
+// 属性
+pm.test("Test data type of the response", () => {
+  pm.expect(jsonData).to.be.an("object");
+  pm.expect(jsonData.name).to.be.a("string");
+  pm.expect(jsonData.age).to.be.a("number");
+  pm.expect(jsonData.hobbies).to.be.an("array");
+  pm.expect(jsonData.website).to.be.undefined;
+  pm.expect(jsonData.email).to.be.null;
+});
+
+```
 
 #### 数据获取
 
@@ -169,3 +263,46 @@ pm.globals.set("access_token", resultobj.token);
 ![](/img/2021-04-13-10-26-57.png)
 
 
+### 脚本
+- postman 集成库：
+
+```javascript
+ajv // JSON架构验证
+atob // base-64 解码
+btoa // base-64 编码
+chai // JavaScript 数据诊断库（断言）
+cheerio // nodejs爬虫模块，在服务器上处理页面dom层（类似于前台的JQuery简化版）
+crypto-js // 摘要，加密
+csv-parse/lib/sync // csv解析操作
+lodash // 封装、简化javascript对数据对象的操作
+moment // 解析、校验、操作、显示日期和时间
+postman-collection // 对postman的collection进行创建保存等操作
+tv4 // JSON架构验证
+uuid // 创建uuid
+xml2js // xml解析
+
+// 例子：
+const csvparse = require('csv-parse/lib/sync');
+// cryptoJS直接使用
+
+```
+
+- nodejs 原生库:
+
+```javascript
+path // nodejs文件路径计算工具
+assert // nodejs断言
+buffer // nodejs二进制处理
+util // nodejs 内部 API工具类
+url // nodejs 处理与解析 URL
+punycode // nodejs 处理域名中Unicode 与 ASCII 转换
+querystring // nodejs 处理url中参数
+string-decoder // nodejs 编码、解码字符串
+stream // nodejs 流操作
+timers // nodejs 定时器
+events // nodejs 事件触发
+
+// 例子：
+const path = require('path');
+
+```
